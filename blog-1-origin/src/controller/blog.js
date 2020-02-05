@@ -17,7 +17,7 @@ const getList = (author, keyword) => {
   ]
 }
 
-getDetail = (id) => {
+const getDetail = (id) => {
   return {
     id: 3,
     title: 'title3',
@@ -27,7 +27,26 @@ getDetail = (id) => {
   }
 }
 
+const newBlog = (blogData = {}) => {
+  console.log('new blog data', blogData)
+  return {
+    id: 5
+  }
+}
+
+const updateBlog = (id, blogData = {}) => {
+  console.log('update blog data', id, blogData)
+  return true
+}
+
+const delBlog = id => {
+  return true
+}
+
 module.exports = {
   getList,
   getDetail,
+  newBlog,
+  updateBlog,
+  delBlog,
 }
