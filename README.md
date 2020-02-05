@@ -5,5 +5,6 @@
 ```
 ./common-js      // node 模块化编程
 ./debugger-test  // debugger in vscode
+./promise-test   // promise
 ./blog-1-origin  // 原生 node 开发的博客系统
 ```
