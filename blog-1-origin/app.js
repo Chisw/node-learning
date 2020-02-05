@@ -40,9 +40,17 @@ const serverHandle = (req, res) => {
     .then(data => {
       req.body = data
 
-      const blogData = handleBlogRouter(req, res)
-      if (blogData) {
-        res.end(JSON.stringify(blogData))
+      // const blogData = handleBlogRouter(req, res)
+      // if (blogData) {
+      //   res.end(JSON.stringify(blogData))
+      //   return
+      // }
+      const blogDataPromise = handleBlogRouter(req, res)
+      if (blogDataPromise) {
+        blogDataPromise
+          .then(blogData => {
+            res.end(JSON.stringify(blogData))
+          })
         return
       }
 
