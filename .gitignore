@@ -1,3 +1,4 @@
 common-js/node_modules
 mysql-test/node_modules
+redis-test/node_modules
 blog-1-origin/node_modules

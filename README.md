@@ -7,5 +7,18 @@
 ./debugger-test  // debugger in vscode
 ./promise-test   // promise test
 ./mysql-test     // mysql test
+./html           // web pages
 ./blog-1-origin  // 原生 node 开发的博客系统
+```
+
+nginx.conf
+```
+location / {
+    proxy_pass http://localhost:8001;
+}
+
+location /api/ {
+    proxy_pass http://localhost:8000;
+    proxy_set_header Host $host;
+}
 ```

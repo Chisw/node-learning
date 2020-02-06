@@ -1,6 +1,14 @@
 const { getList, getDetail, newBlog, updateBlog, delBlog } = require('../controller/blog')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 
+const loginCheck = (req) => {
+  if (!req.session.username) {
+    return Promise.resolve(
+      new ErrorModel('need login')
+    )
+  }
+}
+
 const handleBlogRouter = (req, res) => {
   const method = req.method
   const url = req.url
@@ -34,7 +42,13 @@ const handleBlogRouter = (req, res) => {
   if (method === 'POST' && path === '/api/blog/new') {
     // const result = newBlog(req.body)
     // return new SuccessModel(result)
-    req.body.author = 'jsw'
+
+    const loginCheckResult = loginCheck(req)
+    if (loginCheckResult) {
+      return loginCheckResult
+    }
+
+    req.body.author = req.session.username
     const result = newBlog(req.body)
     return result.then(data => {
       return new SuccessModel(data)
@@ -49,6 +63,12 @@ const handleBlogRouter = (req, res) => {
     // } else {
     //   return new ErrorModel(result)
     // }
+
+    const loginCheckResult = loginCheck(req)
+    if (loginCheckResult) {
+      return loginCheckResult
+    }
+
     const result = updateBlog(id, req.body)
     return result.then(data => {
       if (data) {
@@ -67,7 +87,13 @@ const handleBlogRouter = (req, res) => {
     // } else {
     //   return new ErrorModel(result)
     // }
-    const author = 'jsw'
+
+    const loginCheckResult = loginCheck(req)
+    if (loginCheckResult) {
+      return loginCheckResult
+    }
+
+    const author = req.session.username
     const result = delBlog(id, author)
     return result.then(data => {
       if (data) {

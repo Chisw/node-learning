@@ -13,7 +13,7 @@ const handleUserRouter = (req, res) => {
   const path = url.split('?')[0]
 
   // 登录
-  if (method === 'GET' && path === '/api/user/login') {
+  if (method === 'POST' && path === '/api/user/login') {
     const { username, password} = req.query
     const result = login(username, password)
     // if (result) {
@@ -36,12 +36,12 @@ const handleUserRouter = (req, res) => {
   }
 
   // 登录验证
-  if (method === 'GET' && req.path === '/api/user/login-test') {
-    if (req.session.username) {
-      return Promise.resolve(new SuccessModel(true))
-    }
-    return Promise.resolve(new ErrorModel('login err'))
-  }
+  // if (method === 'GET' && req.path === '/api/user/login-test') {
+  //   if (req.session.username) {
+  //     return Promise.resolve(new SuccessModel(true))
+  //   }
+  //   return Promise.resolve(new ErrorModel('login err'))
+  // }
 
 }
 
