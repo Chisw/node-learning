@@ -10,11 +10,18 @@ const handleUserRouter = (req, res) => {
   if (method === 'POST' && path === '/api/user/login') {
     const { username, password} = req.body
     const result = login(username, password)
-    if (result) {
-      return new SuccessModel(result)
-    } else {
-      return new ErrorModel('登录失败')
-    }
+    // if (result) {
+    //   return new SuccessModel(result)
+    // } else {
+    //   return new ErrorModel('登录失败')
+    // }
+    return result.then(user => {
+      if (user) {
+        return new SuccessModel(user)
+      } else {
+        return new ErrorModel('no user')
+      }
+    })
   }
 }
 

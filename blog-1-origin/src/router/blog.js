@@ -22,34 +22,60 @@ const handleBlogRouter = (req, res) => {
 
   // 详情
   if (method === 'GET' && path === '/api/blog/detail') {
+    // const result = getDetail(id)
+    // return new SuccessModel(result)
     const result = getDetail(id)
-    return new SuccessModel(result)
+    return result.then(data => {
+      return new SuccessModel(data)
+    })
   }
 
   // 新建
   if (method === 'POST' && path === '/api/blog/new') {
+    // const result = newBlog(req.body)
+    // return new SuccessModel(result)
+    req.body.author = 'jsw'
     const result = newBlog(req.body)
-    return new SuccessModel(result)
+    return result.then(data => {
+      return new SuccessModel(data)
+    })
   }
 
   // 更新
   if (method === 'POST' && path === '/api/blog/update') {
+    // const result = updateBlog(id, req.body)
+    // if (result) {
+    //   return new SuccessModel(result)
+    // } else {
+    //   return new ErrorModel(result)
+    // }
     const result = updateBlog(id, req.body)
-    if (result) {
-      return new SuccessModel(result)
-    } else {
-      return new ErrorModel(result)
-    }
+    return result.then(data => {
+      if (data) {
+        return new SuccessModel(data)
+      } else {
+        return new ErrorModel('update err')
+      }
+    })
   }
 
   // 删除
   if (method === 'POST' && path === '/api/blog/del') {
-    const result = delBlog(id)
-    if (result) {
-      return new SuccessModel(result)
-    } else {
-      return new ErrorModel(result)
-    }
+    // const result = delBlog(id)
+    // if (result) {
+    //   return new SuccessModel(result)
+    // } else {
+    //   return new ErrorModel(result)
+    // }
+    const author = 'jsw'
+    const result = delBlog(id, author)
+    return result.then(data => {
+      if (data) {
+        return new SuccessModel(data)
+      } else {
+        return new ErrorModel('del err')
+      }
+    })
   }
 }
 

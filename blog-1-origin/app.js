@@ -39,7 +39,6 @@ const serverHandle = (req, res) => {
   getPostData(req)
     .then(data => {
       req.body = data
-
       // const blogData = handleBlogRouter(req, res)
       // if (blogData) {
       //   res.end(JSON.stringify(blogData))
@@ -54,11 +53,21 @@ const serverHandle = (req, res) => {
         return
       }
 
-      const userData = handleUserRouter(req, res)
-      if (userData) {
-        res.end(JSON.stringify(userData))
-        return
+      // const userData = handleUserRouter(req, res)
+      // if (userData) {
+      //   res.end(JSON.stringify(userData))
+      //   return
+      // }
+      const userResult = handleUserRouter(req, res)
+      if (userResult) {
+        userResult.then(data => {
+          res.end(
+            JSON.stringify(data)
+          )
+        })
+       return
       }
+
 
       // 404
       res.writeHead(404, { "Content-type": "text/plain" })

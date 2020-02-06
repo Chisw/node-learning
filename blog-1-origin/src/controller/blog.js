@@ -13,29 +13,51 @@ const getList = (author, keyword) => {
 }
 
 const getDetail = (id) => {
-  return {
-    id: 3,
-    title: 'title3',
-    content: 'content3',
-    createTime: 1580879423827,
-    author: 'lisi'
-  }
+  const sql = `select * from blogs where id = '${id}'`
+  return exec(sql).then(rows => {
+    return rows[0]
+  })
 }
 
 const newBlog = (blogData = {}) => {
-  console.log('new blog data', blogData)
-  return {
-    id: 5
-  }
+  const { title, content, author } = blogData
+  const createtime = Date.now()
+
+  const sql = `
+    insert into blogs (title, content, createtime, author)
+    values('${title}', '${content}', ${createtime}, '${author}')
+  `
+  return exec(sql).then(insertData => {
+    return {
+      id: insertData.insertId
+    }
+  })
 }
 
 const updateBlog = (id, blogData = {}) => {
-  console.log('update blog data', id, blogData)
-  return true
+  const { title, content, author } = blogData
+
+  const sql = `
+    update blogs set title = '${title}', content = '${content}' where id = '${id}'
+  `
+  return exec(sql).then(updateData => {
+    if (updateData.affectedRows > 0) {
+      return true
+    }
+    return false
+  })
 }
 
-const delBlog = id => {
-  return true
+const delBlog = (id, author) => {
+  const sql = `
+    delete from blogs where id = '${id}' and author = '${author}'
+  `
+  return exec(sql).then(data => {
+    if (data.affectedRows > 0) {
+      return true
+    }
+    return false
+  })
 }
 
 module.exports = {
