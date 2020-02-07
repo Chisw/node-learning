@@ -22,3 +22,22 @@ location /api/ {
     proxy_set_header Host $host;
 }
 ```
+
+#### 安全
+
+sql ```escape```
+
+xss ```xss```
+
+password  crypto
+```js
+const KEY = '23r23f0awefg89'
+function md5(content) {
+    let md5 = crypto.createHash('md5')
+    md5.update(content).digest('hex')
+}
+function genPassword(password) {
+    const str = `password=${password}&key=${KEY}`
+    return md5(str)
+}
+```
