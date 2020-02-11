@@ -4,3 +4,4 @@ redis-test/node_modules
 express-test/node_modules
 blog-1-origin/node_modules
 blog-2-express/node_modules
+blog-3-koa2/node_modules
